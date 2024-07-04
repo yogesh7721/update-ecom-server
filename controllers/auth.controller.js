@@ -61,7 +61,7 @@ exports.loginUser = asyncHandler(async (req, res) => {
     if (!verify) {
         return res.status(400).json({ message: "Password Do Not Match" })
     }
-    if (!found.active) {
+    if (!result.active) {
         return res.status(401).json({ message: "Account Blocked By Admin" })
     }
     const Token = jwt.sign({ userID: result._id }, process.env.JWT_KEY)
