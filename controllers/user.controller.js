@@ -5,7 +5,8 @@ exports.userGetAllOrders = asyncHandler(async (req, res) => {
     const result = await Order
         .find({ user: req.params.id })
         .sort({ createdAt: -1 })
-        .populate("products.product")
+        .populate("products.product").exec()
+        .populate("user").exec()
     res.json({ message: "Users Fetch Sucess", result })
 })
 exports.userGetOrderDetails = asyncHandler(async (req, res) => {

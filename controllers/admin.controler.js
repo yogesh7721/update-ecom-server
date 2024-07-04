@@ -3,6 +3,7 @@ const Product = require("../model/Product");
 const { upload } = require("../utils/Uploads");
 const { findById } = require("../model/Order");
 const Order = require("../model/Order");
+const User = require("../model/User");
 const cloudinary = require("cloudinary").v2
 
 cloudinary.config({
@@ -82,15 +83,20 @@ exports.updateOrderStatus = asyncHandler(async (req, res) => {
 ///////////////////////////////////////////////////////////////////////
 // Users
 exports.getAllUsers = asyncHandler(async (req, res) => {
-    res.json({ message: "User fetch Success" })
+    const result = await User.find()
+    res.json({ message: "User fetch Success", result })
 })
 exports.getUserdetails = asyncHandler(async (req, res) => {
     res.json({ message: "User detail fetch Success" })
 })
 exports.blockUser = asyncHandler(async (req, res) => {
+    const { id } = req.params
+    await User.findByIdAndDelete(id, { active: false })
     res.json({ message: "User block Success" })
 })
 exports.unblockUser = asyncHandler(async (req, res) => {
+    const { id } = req.params
+    await User.findByIdAndDelete(id, { active: true })
     res.json({ message: "User un-Block Success" })
 })
 exports.getUserOrders = asyncHandler(async (req, res) => {
