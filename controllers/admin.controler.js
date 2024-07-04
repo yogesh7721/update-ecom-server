@@ -91,12 +91,12 @@ exports.getUserdetails = asyncHandler(async (req, res) => {
 })
 exports.blockUser = asyncHandler(async (req, res) => {
     const { id } = req.params
-    await User.findByIdAndDelete(id, { active: false })
+    await User.findByIdAndUpdate(id, { active: false })
     res.json({ message: "User block Success" })
 })
 exports.unblockUser = asyncHandler(async (req, res) => {
     const { id } = req.params
-    await User.findByIdAndDelete(id, { active: true })
+    await User.findByIdAndUpdate(id, { active: true })
     res.json({ message: "User un-Block Success" })
 })
 exports.getUserOrders = asyncHandler(async (req, res) => {
